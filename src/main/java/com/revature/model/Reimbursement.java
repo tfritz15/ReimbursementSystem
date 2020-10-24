@@ -1,117 +1,149 @@
 package com.revature.model;
 
-import java.time.LocalDateTime;
+import java.sql.Blob;
+import java.sql.Timestamp;
 
 public class Reimbursement {
-	private int reimbursementID;
-	private int number;
-	private LocalDateTime reimbursementSubmitted;
-	private LocalDateTime reimbursementResolved;
-	private String description;
-	private Byte[] receipt;
-	private User author;
-	private User resolver;
-	private ReimbursementStatus reimbursementStatus;
-	private ReimbursementType reimbursementType;
+	private final int reimbursementID;
+	private final int amount;
+	private final Timestamp reimbursementSubmitted;
+	private final Timestamp reimbursementResolved;
+	private final String description;
+	private final Blob receipt;
+	private final User author;
+	private final User resolver;
+	private final int reimbursementStatus;
+	private final int reimbursementType;
+
+	public Reimbursement(Builder builder) {
+		this.reimbursementID = builder.reimbursementID;
+		this.amount = builder.amount;
+		this.reimbursementSubmitted = builder.reimbursementSubmitted;
+		this.reimbursementResolved = builder.reimbursementResolved;
+		this.description = builder.description;
+		this.receipt = builder.receipt;
+		this.author = builder.author;
+		this.resolver = builder.resolver;
+		this.reimbursementStatus = builder.reimbursementStatus;
+		this.reimbursementType = builder.reimbursementType;
+	}
+
+	public static class Builder {
+		private int reimbursementID;
+		private int amount;
+		private Timestamp reimbursementSubmitted;
+		private Timestamp reimbursementResolved;
+		private String description;
+		private Blob receipt;
+		private User author;
+		private User resolver;
+		private int reimbursementStatus;
+		private int reimbursementType;
+
+		public static Builder newInstance() {
+			return new Builder();
+		}
+
+		public Builder setReimbursementID(int reimbursementID) {
+			this.reimbursementID = reimbursementID;
+			return this;
+		}
+
+		public Builder setAmount(int amount) {
+			this.amount = amount;
+			return this;
+		}
+
+		public Builder setReimbursementSubmitted(Timestamp reimbursementSubmitted) {
+			this.reimbursementSubmitted = reimbursementSubmitted;
+			return this;
+		}
+
+		public Builder setReimbursementResolved(Timestamp reimbursementResolved) {
+			this.reimbursementResolved = reimbursementResolved;
+			return this;
+		}
+
+		public Builder setDescription(String description) {
+			this.description = description;
+			return this;
+		}
+
+		public Builder setReceipt(Blob receipt) {
+			this.receipt = receipt;
+			return this;
+		}
+
+		public Builder setAuthor(User author) {
+			this.author = author;
+			return this;
+		}
+
+		public Builder setResolver(User resolver) {
+			this.resolver = resolver;
+			return this;
+		}
+
+		public Builder setReimbursementStatus(int reimbursementStatus) {
+			this.reimbursementStatus = reimbursementStatus;
+			return this;
+		}
+
+		public Builder setReimbursementType(int reimbursementType) {
+			this.reimbursementType = reimbursementType;
+			return this;
+		}
+
+		public Reimbursement build() {
+			return new Reimbursement(this);
+		}
+	}
 
 	public int getReimbursementID() {
 		return reimbursementID;
 	}
 
-	public void setReimbursementID(int reimbursementID) {
-		this.reimbursementID = reimbursementID;
+	public int getAmount() {
+		return amount;
 	}
 
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	public LocalDateTime getReimbursementSubmitted() {
+	public Timestamp getReimbursementSubmitted() {
 		return reimbursementSubmitted;
 	}
 
-	public void setReimbursementSubmitted(LocalDateTime reimbursementSubmitted) {
-		this.reimbursementSubmitted = reimbursementSubmitted;
-	}
-
-	public LocalDateTime getReimbursementResolved() {
+	public Timestamp getReimbursementResolved() {
 		return reimbursementResolved;
-	}
-
-	public void setReimbursementResolved(LocalDateTime reimbursementResolved) {
-		this.reimbursementResolved = reimbursementResolved;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Byte[] getReceipt() {
+	public Blob getReceipt() {
 		return receipt;
-	}
-
-	public void setReceipt(Byte[] receipt) {
-		this.receipt = receipt;
 	}
 
 	public User getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(User author) {
-		this.author = author;
-	}
-
 	public User getResolver() {
 		return resolver;
 	}
 
-	public void setResolver(User resolver) {
-		this.resolver = resolver;
-	}
-
-	public ReimbursementStatus getReimbursementStatus() {
+	public int getReimbursementStatus() {
 		return reimbursementStatus;
 	}
 
-	public void setReimbursementStatus(ReimbursementStatus reimbursementStatus) {
-		this.reimbursementStatus = reimbursementStatus;
-	}
-
-	public ReimbursementType getReimbursementType() {
+	public int getReimbursementType() {
 		return reimbursementType;
 	}
 
-	public void setReimbursementType(ReimbursementType reimbursementType) {
-		this.reimbursementType = reimbursementType;
+	@Override
+	public String toString() {
+		return "Reimbursement [reimbursementID=" + reimbursementID + ", amount=" + amount + ", reimbursementSubmitted="
+				+ reimbursementSubmitted + ", reimbursementResolved=" + reimbursementResolved + ", description="
+				+ description + ", receipt=" + receipt + ", author=" + author + ", resolver=" + resolver
+				+ ", reimbursementStatus=" + reimbursementStatus + ", reimbursementType=" + reimbursementType + "]";
 	}
-
-	public Reimbursement(int reimbursementID, int number, LocalDateTime reimbursementSubmitted,
-			LocalDateTime reimbursementResolved, String description, Byte[] receipt, User author, User resolver,
-			ReimbursementStatus reimbursementStatus, ReimbursementType reimbursementType) {
-		super();
-		this.reimbursementID = reimbursementID;
-		this.number = number;
-		this.reimbursementSubmitted = reimbursementSubmitted;
-		this.reimbursementResolved = reimbursementResolved;
-		this.description = description;
-		this.receipt = receipt;
-		this.author = author;
-		this.resolver = resolver;
-		this.reimbursementStatus = reimbursementStatus;
-		this.reimbursementType = reimbursementType;
-	}
-
-	public Reimbursement() {
-		super();
-	}
-
 }
