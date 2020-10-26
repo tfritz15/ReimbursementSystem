@@ -1,6 +1,5 @@
 package com.revature.model;
 
-import java.sql.Blob;
 import java.sql.Timestamp;
 
 public class Reimbursement {
@@ -9,7 +8,7 @@ public class Reimbursement {
 	private final Timestamp reimbursementSubmitted;
 	private final Timestamp reimbursementResolved;
 	private final String description;
-	private final Blob receipt;
+	private final byte[] receipt;
 	private final User author;
 	private final User resolver;
 	private final int reimbursementStatus;
@@ -34,7 +33,7 @@ public class Reimbursement {
 		private Timestamp reimbursementSubmitted;
 		private Timestamp reimbursementResolved;
 		private String description;
-		private Blob receipt;
+		private byte[] receipt;
 		private User author;
 		private User resolver;
 		private int reimbursementStatus;
@@ -69,7 +68,7 @@ public class Reimbursement {
 			return this;
 		}
 
-		public Builder setReceipt(Blob receipt) {
+		public Builder setReceipt(byte[] receipt) {
 			this.receipt = receipt;
 			return this;
 		}
@@ -119,7 +118,7 @@ public class Reimbursement {
 		return description;
 	}
 
-	public Blob getReceipt() {
+	public byte[] getReceipt() {
 		return receipt;
 	}
 

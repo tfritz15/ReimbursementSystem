@@ -54,7 +54,7 @@ public class UserDao implements DaoContract<User, Integer> {
 	@Override
 	public int update(User t) {
 		String sql = "update ers_users set ers_username = ?, ers_password = ?," +
-				" user_first_name = ?, user_last_name, user_email = ?, user_role_id = ? where ers_users_id = ?";
+				" user_first_name = ?, user_last_name = ?, user_email = ?, user_role_id = ? where ers_users_id = ?";
 		try (Connection conn = ConnectionUtil.getInstance().getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);) {
 			ps.setString(1, t.getUsername());
@@ -63,6 +63,7 @@ public class UserDao implements DaoContract<User, Integer> {
 			ps.setString(4, t.getLastName());
 			ps.setString(5, t.getEmail());
 			ps.setInt(6, t.getUserRole());
+			ps.setInt(7, t.getPrimaryKey());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -104,6 +105,22 @@ public class UserDao implements DaoContract<User, Integer> {
 			return 0;
 		}
 		return 1;
+	}
+
+	public int verifyLoginCredentials(String uname, String pass) {
+		String sql = "select user_role_id from ers_users where ers_users_id = ?, ers_password = ?";
+		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql);) {
+			ps.setString(1, uname);
+			ps.setString(2, pass);
+			ResultSet rs = ps.executeQuery();
+			if (rs != null) {
+				rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 }

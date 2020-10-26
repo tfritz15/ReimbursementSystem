@@ -24,4 +24,5 @@ public class ConnectionUtil {
 	public Connection getConnection() throws SQLException {
 		return DriverManager.getConnection(url, username, password);
 	}
+
 }
