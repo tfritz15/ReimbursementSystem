@@ -1,7 +1,6 @@
 package com.revature.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.revature.model.User;
 import com.revature.service.UserService;
 
 public class UserController {
@@ -17,15 +16,15 @@ public class UserController {
 		this(new UserService());
 	}
 
-	public String login(HttpServletRequest req) {
-		String username = req.getParameter("username");
-		String password = req.getParameter("password");
-		int isUser = us.verifyLoginCredentials(username, password);
-		if (isUser == 0) {
-			return "html/reimbursement.html";
-		} else if (isUser == 1) {
-			return "html/pending.html";
-		}
-		return "User not found";
+	public int verifyLoginCredentials(String uname, String pass) {
+		return us.verifyLoginCredentials(uname, pass);
+	}
+
+	public int registerUser(User user) {
+		return us.registerUser(user);
+	}
+
+	public User findbyUsername(String username) {
+		return us.findByUsername(username);
 	}
 }

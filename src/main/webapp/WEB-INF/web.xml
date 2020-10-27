@@ -21,4 +21,44 @@
     <servlet-name>DataServlet</servlet-name>
     <url-pattern>/DataServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginServlet</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.revature.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AccountServlet</display-name>
+    <servlet-name>AccountServlet</servlet-name>
+    <servlet-class>com.revature.servlet.AccountServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccountServlet</servlet-name>
+    <url-pattern>/AccountServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PendingServlet</display-name>
+    <servlet-name>PendingServlet</servlet-name>
+    <servlet-class>com.revature.servlet.PendingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PendingServlet</servlet-name>
+    <url-pattern>/PendingServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReimbursementServlet</display-name>
+    <servlet-name>ReimbursementServlet</servlet-name>
+    <servlet-class>com.revature.servlet.ReimbursementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReimbursementServlet</servlet-name>
+    <url-pattern>/ReimbursementServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

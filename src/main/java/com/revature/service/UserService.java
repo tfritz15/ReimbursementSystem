@@ -23,4 +23,8 @@ public class UserService {
 		ud.create(user);
 		return 1;
 	}
+
+	public User findByUsername(String username) {
+		return ud.findByUsername(username);
+	}
 }

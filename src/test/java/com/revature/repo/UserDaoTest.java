@@ -19,14 +19,12 @@ public class UserDaoTest {
 	private User user;
 	private Connection conn;
 
-	@SuppressWarnings("deprecation")
 	@Before
 	public void setup() {
 		try {
 			// Establish database connection and set auto commit to false
 			conn = ConnectionUtil.getInstance().getConnection();
 			conn.setAutoCommit(false);
-			long currentTime = System.currentTimeMillis();
 			// Create a known state of the test database before each test
 			user = new User(1, "username", "password", "John", "Doe", "email@gmail.com", 0);
 			ud.create(user);

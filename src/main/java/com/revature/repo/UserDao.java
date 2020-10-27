@@ -51,6 +51,24 @@ public class UserDao implements DaoContract<User, Integer> {
 		return user;
 	}
 
+	public User findByUsername(String username) {
+		User user = null;
+		String sql = "select * from ers_users where ers_username = ?";
+		try (Connection conn = ConnectionUtil.getInstance().getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setString(1, username);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				user = new User(rs.getInt(1), rs.getString(2), rs.getString(3),
+						rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7));
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
 	@Override
 	public int update(User t) {
 		String sql = "update ers_users set ers_username = ?, ers_password = ?," +
@@ -108,7 +126,7 @@ public class UserDao implements DaoContract<User, Integer> {
 	}
 
 	public int verifyLoginCredentials(String uname, String pass) {
-		String sql = "select user_role_id from ers_users where ers_users_id = ?, ers_password = ?";
+		String sql = "select user_role_id from ers_users where ers_username = ?, ers_password = ?";
 		try (Connection conn = ConnectionUtil.getInstance().getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);) {
 			ps.setString(1, uname);
