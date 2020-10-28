@@ -34,4 +34,8 @@ public class ReimbursementController {
 		return rs.updateReimbursement(r);
 	}
 
+	public Reimbursement findById(int id) {
+		return rs.findById(id);
+	}
+
 }

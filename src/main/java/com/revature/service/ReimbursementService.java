@@ -34,4 +34,8 @@ public class ReimbursementService {
 		return rd.update(r);
 	}
 
+	public Reimbursement findById(int id) {
+		return rd.findById(id);
+	}
+
 }

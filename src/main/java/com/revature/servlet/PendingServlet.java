@@ -58,7 +58,7 @@ public class PendingServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Reimbursement reimbursement = Reimbursement.Builder.newInstance()
-				.setReimbursementID(0) // TODO implement id generator or make reimbursment_id serial
+				.setReimbursementID(0) // TODO implement generator for reimbursement id
 				.setAmount(Integer.parseInt(request.getParameter("amount")))
 				.setReimbursementSubmitted(new Timestamp(System.currentTimeMillis()))
 				.setReimbursementResolved(null)
