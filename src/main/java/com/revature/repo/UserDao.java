@@ -126,19 +126,20 @@ public class UserDao implements DaoContract<User, Integer> {
 	}
 
 	public int verifyLoginCredentials(String uname, String pass) {
-		String sql = "select user_role_id from ers_users where ers_username = ?, ers_password = ?";
+		String sql = "select user_role_id from ers_users where ers_username = ? and ers_password = ?";
+		int userRole = -1;
 		try (Connection conn = ConnectionUtil.getInstance().getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);) {
 			ps.setString(1, uname);
 			ps.setString(2, pass);
 			ResultSet rs = ps.executeQuery();
-			if (rs != null) {
-				rs.getInt(1);
+			while (rs.next()) {
+				userRole = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return -1;
+		return userRole;
 	}
 
 }

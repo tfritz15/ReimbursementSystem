@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import com.revature.model.User;
 /**
  * Servlet implementation class PendingServlet
  */
+@WebServlet(name = "pending", urlPatterns = { "/pending" }, loadOnStartup = 1)
 public class PendingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final UserController uc = new UserController();
@@ -49,6 +51,11 @@ public class PendingServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+
+		// response.getWriter().append("Served at: ").append(request.getContextPath() +
+		// "/pending");
+		// request.getRequestDispatcher("/html/pending.html").forward(request,
+		// response);
 	}
 
 	/**

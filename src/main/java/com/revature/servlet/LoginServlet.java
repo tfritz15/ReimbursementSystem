@@ -3,6 +3,7 @@ package com.revature.servlet;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,9 +14,10 @@ import com.revature.controller.UserController;
 /**
  * Servlet implementation class LoginServlet
  */
+@WebServlet(name = "login", urlPatterns = { "/login" }, loadOnStartup = 1)
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final UserController uc = new UserController();
+	private UserController uc = new UserController();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -30,8 +32,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Post for sending secure user login info
-		doPost(request, response);
+		request.getRequestDispatcher("/html/login.html").forward(request, response);
 	}
 
 	/**
@@ -40,6 +41,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// Create session object
 		// Create session object
 		HttpSession session = request.getSession(true);
 		// Get login info from form data and pass it to the controller
@@ -53,24 +55,25 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("username", request.getParameter("username"));
 					session.setAttribute("user_role", 0);
 				}
-				response.sendRedirect("/html/pending.html");
+				request.getRequestDispatcher("html/pending.html").forward(request, response);
 				break;
 			case 1: // send finance manager to reimbursement page to manage reimbursements
 				if (session.isNew()) {
 					session.setAttribute("username", request.getParameter("username"));
 					session.setAttribute("user_role", 1);
 				}
-				response.sendRedirect("/html/reimbursement.html");
+				request.getRequestDispatcher("html/reimbursement.html").forward(request, response);
 				break;
 			case -1: // user account not found, send to account page to create account
-				response.sendRedirect("/html/reimbursement.html");
+				request.getRequestDispatcher("html/error.html").forward(request, response);
 				break;
 			default:
-				response.sendRedirect("/html/error.html");
+				request.getRequestDispatcher("html/error.html").forward(request, response);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		// request.getRequestDispatcher("/html/error.html").forward(request, response);
 	}
 
 }
