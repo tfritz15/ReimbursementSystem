@@ -33,4 +33,8 @@ public class ConnectionUtil {
 		return DriverManager.getConnection(url, username, password);
 	}
 
+	public String callHash() {
+		return password;
+	}
+
 }

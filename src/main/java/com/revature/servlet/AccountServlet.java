@@ -34,9 +34,7 @@ public class AccountServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// doPost(request, response);
-		// response.getWriter().append("Served at: ").append(request.getContextPath() +
-		// "/account");
+		HttpSession session = request.getSession();
 		request.getRequestDispatcher("/html/account.html").forward(request, response);
 	}
 
@@ -49,13 +47,10 @@ public class AccountServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if (session.isNew()) {
-			// response.sendRedirect("/html/error.html");
 			request.getRequestDispatcher("/html/error.html").forward(request, response);
 		}
-		String uname = request.getParameter("username");
-		String pass = request.getParameter("password");
-		if (uc.verifyLoginCredentials(uname, pass) != 1) {
-			// response.sendRedirect("/html/error.html");
+		int userRole = Integer.parseInt(session.getAttribute("user_role").toString());
+		if (userRole != 1) {
 			request.getRequestDispatcher("/html/error.html").forward(request, response);
 		} else {
 			String username = request.getParameter("acctName");

@@ -81,4 +81,10 @@ public class User {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return "User [primaryKey=" + primaryKey + ", username=" + username + ", password=" + password + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", userRole=" + userRole + "]";
+	}
+
 }

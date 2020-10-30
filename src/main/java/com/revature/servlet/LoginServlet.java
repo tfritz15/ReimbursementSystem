@@ -45,26 +45,26 @@ public class LoginServlet extends HttpServlet {
 		// Create session object
 		HttpSession session = request.getSession(true);
 		// Get login info from form data and pass it to the controller
+		String password = request.getParameter("password");
 		int userValue = uc.verifyLoginCredentials(request.getParameter("username"),
 				request.getParameter("password"));
+		session.setAttribute("username", request.getParameter("username"));
 		// Switch on userValue which is the role of the user, -1 if user doesn't exist
 		try {
 			switch (userValue) {
 			case 0: // send employee to pending page to create or view pending reimbursements
 				if (session.isNew()) {
-					session.setAttribute("username", request.getParameter("username"));
 					session.setAttribute("user_role", 0);
 				}
 				request.getRequestDispatcher("html/pending.html").forward(request, response);
 				break;
 			case 1: // send finance manager to reimbursement page to manage reimbursements
 				if (session.isNew()) {
-					session.setAttribute("username", request.getParameter("username"));
 					session.setAttribute("user_role", 1);
 				}
 				request.getRequestDispatcher("html/reimbursement.html").forward(request, response);
 				break;
-			case -1: // user account not found, send to account page to create account
+			case -1: // user account not found
 				request.getRequestDispatcher("html/error.html").forward(request, response);
 				break;
 			default:
@@ -73,7 +73,6 @@ public class LoginServlet extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// request.getRequestDispatcher("/html/error.html").forward(request, response);
 	}
 
 }

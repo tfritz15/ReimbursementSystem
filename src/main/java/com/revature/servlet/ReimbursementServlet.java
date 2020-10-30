@@ -40,14 +40,11 @@ public class ReimbursementServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		HttpSession session = request.getSession();
-		String uname = request.getParameter("username");
-		String pass = request.getParameter("password");
 		if (session.isNew()) { // new user should not have access to this page
-			response.sendRedirect("/html/error.html");
-		} else if (uc.verifyLoginCredentials(uname, pass) != 1) {
-			response.sendRedirect("/html/error.html");
+			request.getRequestDispatcher("/html/error.html").forward(request, response);
+		} else if (Integer.parseInt(session.getAttribute("user_role").toString()) != 1) {
+			request.getRequestDispatcher("/html/error.html").forward(request, response);
 		} else {
 			List<Reimbursement> pending = rc.getPendingReimbursements();
 			try {
@@ -56,11 +53,6 @@ public class ReimbursementServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-
-		// response.getWriter().append("Served at: ").append(request.getContextPath() +
-		// "/reimbursement");
-		// request.getRequestDispatcher("/html/reimbursement.html").forward(request,
-		// response);
 
 	}
 
@@ -71,35 +63,26 @@ public class ReimbursementServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		int status = Integer.parseInt(request.getParameter("status"));
+		// String username = request.getParameter("username");
 		HttpSession session = request.getSession();
-		if (session.isNew()) { // new user should not have access to this page
-			response.sendRedirect("/html/error.html");
+		Reimbursement r = rc.findById(id);
+		if (r != null) {
+			Reimbursement update = Reimbursement.Builder.newInstance()
+					.setReimbursementID(r.getReimbursementID())
+					.setAmount(r.getAmount())
+					.setReimbursementSubmitted(r.getReimbursementSubmitted())
+					.setReimbursementResolved(new Timestamp(System.currentTimeMillis()))
+					.setDescription(r.getDescription())
+					.setReceipt(null)
+					.setAuthor(r.getAuthor())
+					.setResolver(uc.findbyUsername(session.getAttribute("username").toString()))
+					.setReimbursementStatus(status)
+					.setReimbursementType(r.getReimbursementType())
+					.build();
+			rc.updateReimbursement(update);
 		}
-		String uname = request.getParameter("username");
-		String pass = request.getParameter("password");
-		if (uc.verifyLoginCredentials(uname, pass) != 1) {
-			response.sendRedirect("/html/error.html");
-		} else {
-			int id = Integer.parseInt(request.getParameter("id"));
-			int status = Integer.parseInt(request.getParameter("status"));
-			String username = request.getParameter("username");
-			Reimbursement r = rc.findById(id);
-			if (r != null) {
-				Reimbursement update = Reimbursement.Builder.newInstance()
-						.setReimbursementID(r.getReimbursementID())
-						.setAmount(r.getAmount())
-						.setReimbursementSubmitted(r.getReimbursementSubmitted())
-						.setReimbursementResolved(new Timestamp(System.currentTimeMillis()))
-						.setDescription(r.getDescription())
-						.setReceipt(null)
-						.setAuthor(r.getAuthor())
-						.setResolver(uc.findbyUsername(username))
-						.setReimbursementStatus(status)
-						.setReimbursementType(r.getReimbursementType())
-						.build();
-				rc.updateReimbursement(update);
-			}
-		}
-
+		request.getRequestDispatcher("/html/reimbursement.html").forward(request, response);
 	}
 }

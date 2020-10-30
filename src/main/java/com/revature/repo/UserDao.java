@@ -92,17 +92,16 @@ public class UserDao implements DaoContract<User, Integer> {
 
 	@Override
 	public int create(User t) {
-		String sql = "insert into ers_users (ers_users_id, ers_username, ers_password," +
-				"user_first_name, user_last_name, user_email, user_role_id) values (?,?,?,?,?,?,?)";
+		String sql = "insert into ers_users (ers_username, ers_password," +
+				"user_first_name, user_last_name, user_email, user_role_id) values (?,?,?,?,?,?)";
 		try (Connection conn = ConnectionUtil.getInstance().getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql);) {
-			ps.setInt(1, t.getPrimaryKey());
-			ps.setString(2, t.getUsername());
-			ps.setString(3, t.getPassword());
-			ps.setString(4, t.getFirstName());
-			ps.setString(5, t.getLastName());
-			ps.setString(6, t.getEmail());
-			ps.setInt(7, t.getUserRole());
+			ps.setString(1, t.getUsername());
+			ps.setString(2, t.getPassword());
+			ps.setString(3, t.getFirstName());
+			ps.setString(4, t.getLastName());
+			ps.setString(5, t.getEmail());
+			ps.setInt(6, t.getUserRole());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
