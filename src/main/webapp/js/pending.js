@@ -16,16 +16,8 @@ function renderTable(reimbursements) {
 		author.innerText = reimbursement.author;
 		resolver.innerText = reimbursement.resolver;
 		status.innerText = reimbursement.reimbursementStatus;
-		type.innerText = reimbursement.reimbursementType; //not showing up
-		//tr.append(reId, amount, submitted, resolved, author, status, type);
-		tr.appendChild(reId);
-		tr.appendChild(amount);
-		tr.appendChild(submitted);
-		tr.appendChild(resolved);
-		tr.appendChild(author);
-		tr.appendChild(resolver);
-		tr.appendChild(status);
-		tr.appendChild(type);
+		type.innerText = reimbursement.reimbursementType;
+		tr.append(reId, amount, submitted, resolved, author, resolver, status, type);
 		document.getElementById("pendingTableBody").append(tr);
 	}
 }
@@ -35,22 +27,9 @@ async function asyncFetch(url, expression) {
 	const json = await response.json();
 	expression(json);
 }
+
 function load() {
 	asyncFetch("http://localhost:8080/Reimbursement_System/pending", renderTable);
 }
-/*async function addReimbursement() {
-	const reimbursement = {
-	  amount: document.getElementById("amount"),
-	  type: document.getElementById("description"),
-	  description: document.getElementById("type")
-	};
-	const fetched = await fetch("http://localhost:8080/Reimbursement_System/pending", {
-	  method: "post",
-	  body: JSON.stringify(reimbursement),
-	});
-	const json = await fetched.text();
-	const rows = document.getElementById('pendingTableBody').innerHTML='';
-	asyncFetch("http://localhost:8080/HallowsMonsters/pending", renderTable);
-  }*/
 
-  document.getElementById("refresh").addEventListener("click", load);
+document.getElementById("refresh").addEventListener("click", load);
