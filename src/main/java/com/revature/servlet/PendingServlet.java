@@ -16,8 +16,6 @@ import com.revature.controller.ReimbursementController;
 import com.revature.controller.UserController;
 import com.revature.model.Reimbursement;
 import com.revature.model.User;
-import com.revature.repo.ReimbursementDao;
-import com.revature.repo.UserDao;
 
 /**
  * Servlet implementation class PendingServlet
@@ -27,8 +25,6 @@ public class PendingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final UserController uc = new UserController();
 	private final ReimbursementController rc = new ReimbursementController();
-	private final ReimbursementDao rd = new ReimbursementDao();
-	private final UserDao ud = new UserDao();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -49,14 +45,12 @@ public class PendingServlet extends HttpServlet {
 		} else {
 			User user = uc.findbyUsername(session.getAttribute("username").toString());
 			List<Reimbursement> userReimbursements = rc.retrieveUserReimbursements(user);
-			// List<Reimbursement> userReimbursements = rd.findAll(); //take out
 			try { // return user's list of reimbursements
 				response.getWriter().println(new ObjectMapper().writeValueAsString(userReimbursements));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**

@@ -36,12 +36,12 @@
   	<servlet-name>pending</servlet-name>
   	<url-pattern>/pending</url-pattern>
   </servlet-mapping>
-  <error-page>
+  <!--<error-page>
   	<error-code>404</error-code>
   	<location>/html/error.html</location>
-  </error-page>
-  <error-page>
+  </error-page>-->
+  <!--<error-page>
   	<exception-type>java.sql.SQLException</exception-type>
   	<location>/html/error.html</location>
-  </error-page>
+  </error-page>-->
 </web-app>

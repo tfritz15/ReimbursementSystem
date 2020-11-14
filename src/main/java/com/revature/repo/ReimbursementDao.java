@@ -31,8 +31,8 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 						.setReimbursementResolved(rs.getTimestamp(4))
 						.setDescription(rs.getString(5))
 						.setReceipt(rs.getBytes(6))
-						.setAuthor(ud.findById(7))
-						.setResolver(ud.findById(8))
+						.setAuthor(ud.findById(rs.getInt(7)))
+						.setResolver(ud.findById(rs.getInt(8)))
 						.setReimbursementStatus(rs.getInt(9))
 						.setReimbursementType(rs.getInt(10))
 						.build();
@@ -187,8 +187,8 @@ public class ReimbursementDao implements DaoContract<Reimbursement, Integer> {
 						.setReimbursementResolved(rs.getTimestamp(4))
 						.setDescription(rs.getString(5))
 						.setReceipt(rs.getBytes(6))
-						.setAuthor(ud.findById(7))
-						.setResolver(ud.findById(8))
+						.setAuthor(ud.findById(rs.getInt(7)))
+						.setResolver(ud.findById(rs.getInt(8)))
 						.setReimbursementStatus(rs.getInt(9))
 						.setReimbursementType(rs.getInt(10))
 						.build();
