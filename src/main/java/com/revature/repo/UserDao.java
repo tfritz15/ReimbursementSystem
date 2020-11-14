@@ -34,7 +34,7 @@ public class UserDao implements DaoContract<User, Integer> {
 
 	@Override
 	public User findById(Integer i) {
-		User user = null;
+		User user = new User();
 		String sql = "select * from ers_users where ers_users_id = ?";
 		try (Connection conn = ConnectionUtil.getInstance().getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -52,7 +52,7 @@ public class UserDao implements DaoContract<User, Integer> {
 	}
 
 	public User findByUsername(String username) {
-		User user = null;
+		User user = new User();
 		String sql = "select * from ers_users where ers_username = ?";
 		try (Connection conn = ConnectionUtil.getInstance().getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql)) {

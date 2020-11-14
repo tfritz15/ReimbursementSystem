@@ -53,15 +53,11 @@ public class LoginServlet extends HttpServlet {
 		try {
 			switch (userValue) {
 			case 0: // send employee to pending page to create or view pending reimbursements
-				if (session.isNew()) {
-					session.setAttribute("user_role", 0);
-				}
+				session.setAttribute("user_role", 0);
 				request.getRequestDispatcher("html/pending.html").forward(request, response);
 				break;
 			case 1: // send finance manager to reimbursement page to manage reimbursements
-				if (session.isNew()) {
-					session.setAttribute("user_role", 1);
-				}
+				session.setAttribute("user_role", 1);
 				request.getRequestDispatcher("html/reimbursement.html").forward(request, response);
 				break;
 			case -1: // user account not found
